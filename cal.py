@@ -8,6 +8,22 @@ class machine:
     def reset(self):
         self.b = copy(self.a)
     
+    def swap(self, a, c):
+            temp1 = 0
+            temp2 = 0
+
+            for i in range(7):
+
+                if self.b[i] == a:
+                    temp1 = i
+                elif self.b[i] == c:
+                    temp2 = i
+
+            if not temp1 == 0:
+                temp = self.b[temp1]
+                self.b[temp1] = self.b[temp2]
+                self.b[temp2] = temp
+    
     def cal(self, a):
         a = a-1
 
@@ -16,50 +32,23 @@ class machine:
             return None
 
         elif a == 2:
+            self.swap('c', 'f')
+            self.swap('g', 'c')
+            
             temp1 = 0
             temp2 = 0
 
             for i in range(7):
 
-                if self.b[i] == 'c':
-                    temp1 = i
-                elif self.b[i] == 'f':
-                    temp2 = i
-
-            if not temp1 == 0:
-                temp = self.b[temp1]
-                self.b[temp1] = self.b[temp2]
-                self.b[temp2] = temp
-
-            temp1 = 0
-            temp2 = 0
-
-            for i in range(7):
-
-                if self.b[i] == 'g':
-                    temp1 = i
-                elif self.b[i] == 'c':
-                    temp2 = i
-
-            if not temp1 == 0:
-                temp = self.b[temp1]
-                self.b[temp1] = self.b[temp2]
-                self.b[temp2] = temp
-
-            temp1 = 0
-            temp2 = 0
-
-            for i in range(7):
                 if self.b[i] == 'd' or self.b[i] == 'x':
                     temp1 = i
                 elif self.b[i] == 'e':
                     temp2 = i
-                
+
             if not temp1 == 0:
                 temp = self.b[temp1]
                 self.b[temp1] = self.b[temp2]
                 self.b[temp2] = temp
-            
 
             print(self.b)
 
