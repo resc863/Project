@@ -38,53 +38,58 @@ def search_book(keyword):
         list.append(info)
     return list
 
-url = 'http://www.yes24.com/Product/Goods/84907426?scode=032&OzSrank=13'
-html = requests.get(url).text
+def inf():
+    url = 'http://www.yes24.com/Product/Goods/84907426?scode=032&OzSrank=13'
+    html = requests.get(url).text
 
-soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html, 'html.parser')
 
-print("Yes24 정보\n")
+    result = "Yes24 정보\n"
 
-book_name = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > div > h2'
-book = soup.select(book_name)
-print("타이틀명: "+book[0].text+"\n")
+    book_name = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > div > h2'
+    book = soup.select(book_name)
+    result = result + "타이틀명: "+book[0].text+"\n"
 
-release_date = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > span.gd_pubArea > span'
-release = soup.select(release_date)
+    release_date = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > span.gd_pubArea > span'
+    release = soup.select(release_date)
 
-for i in release:
-    date = i.get('class')
+    for i in release:
+        date = i.get('class')
 
-    for j in date:
-        if j == 'gd_date':
-            print("출시일 : "+i.text+"\n")
+        for j in date:
+            if j == 'gd_date':
+                result = result + "출시일 : "+i.text+"\n"
 
-rating = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span'
-rating1 = soup.select(rating)
-print("평가: "+rating1[0].text)
+    rating = '#yDetailTopWrap > div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span'
+    rating1 = soup.select(rating)
+    result = result + "평가: "+rating1[0].text
 
-price_info = '#yDetailTopWrap > div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div:nth-child(3) > table > tbody > tr:nth-child(1) > td > span > em'
-price = soup.select(price_info)
-print("정가: "+price[0].text+"\n")
+    price_info = '#yDetailTopWrap > div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div:nth-child(3) > table > tbody > tr:nth-child(1) > td > span > em'
+    price = soup.select(price_info)
+    result = result + "정가: "+price[0].text+"\n"
 
-sale_price = '#yDetailTopWrap > div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div:nth-child(3) > table > tbody > tr.accentRow > td > span > em'
-sale = soup.select(sale_price)
-print("할인가: " +sale[0].text)
+    sale_price = '#yDetailTopWrap > div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div:nth-child(3) > table > tbody > tr.accentRow > td > span > em'
+    sale = soup.select(sale_price)
+    result = result + "할인가: " +sale[0].text
 
-print("\n\n")
+    result = result + "\n\n"
 
 
-url = 'https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=DVD&KeyWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&KeyRecentPublish=0&OutStock=0&ViewType=Detail&CustReviewCount=0&CustReviewRank=0&KeyFullWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&KeyLastWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&CategorySearch=&chkKeyTitle=&chkKeyAuthor=&chkKeyPublisher=&chkKeyISBN=&chkKeyTag=&chkKeyTOC=&chkKeySubject='
-html = requests.get(url).text
+    url = 'https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=DVD&KeyWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&KeyRecentPublish=0&OutStock=0&ViewType=Detail&CustReviewCount=0&CustReviewRank=0&KeyFullWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&KeyLastWord=%B0%DC%BF%EF%BF%D5%B1%B9+2&CategorySearch=&chkKeyTitle=&chkKeyAuthor=&chkKeyPublisher=&chkKeyISBN=&chkKeyTag=&chkKeyTOC=&chkKeySubject='
+    html = requests.get(url).text
 
-soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html, 'html.parser')
 
-print("알라딘 정보\n")
+    result = result + "알라딘 정보\n"
 
-dvdlist = search_book('겨울왕국2')
+    dvdlist = search_book('겨울왕국2')
 
-for i in dvdlist:
-    print("타이틀명: "+i['name']+"\n")
-    print("가격: "+i['price']+"\n")
-    print("정보: "+i['data']+"\n")
-    print("\n\n")
+    for i in dvdlist:
+        result = result + "타이틀명: "+i['name']+"\n"
+        result = result + "가격: "+i['price']+"\n"
+        result = result + "정보: "+i['data']+"\n"
+        result = result + "\n\n"
+    
+    return result
+
+print(inf())
