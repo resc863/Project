@@ -10,7 +10,7 @@ def search_book(keyword):
 
     url =  base_url + urllib.parse.urlencode(params, encoding = encoding_type)
     url_get = requests.get(url)
-    soup = BeautifulSoup(url_get.content, 'lxml')
+    soup = BeautifulSoup(url_get.content, 'html.parser')
     items = soup.find_all(class_='ss_book_box')
     list = []
 
@@ -31,7 +31,7 @@ def search_book(keyword):
             info['price'] = 'None'
         
         for i in data1:
-            data = data + i.string
+            data = data + i.string + " "
 
         info['data']=data
 
