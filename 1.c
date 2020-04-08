@@ -3,8 +3,7 @@
 
 int main()
 {
-    int i, t, n, x, y, j, max, m, cnt = 0;
-
+    int i, t, n, x, y, j, max, m, cnt;
     scanf("%d", &t);
 
     for (i=0;i<t;i++) {
@@ -24,13 +23,11 @@ int main()
                 n = n + m;
                 cnt++;
             }
-
             if (cnt > max) {
                 max = cnt;
             }
         }
         printf("%d\n", max);
     }
-
     return 0;
 }
