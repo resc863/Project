@@ -3,12 +3,13 @@
 
 int main()
 {
-    int i, t, n, x, y, j, max, m, cnt;
+    int i, t, n, x, y, j, m, cnt, a = 0;
+
     scanf("%d", &t);
+    int* max = (int *)malloc(sizeof(int)*t);
 
     for (i=0;i<t;i++) {
         scanf("%d %d", &x, &y);
-        max = 0;
 
         for (j=x;j<=y;j++) {
             n = m = 1;
@@ -23,11 +24,16 @@ int main()
                 n = n + m;
                 cnt++;
             }
-            if (cnt > max) {
-                max = cnt;
+            if (cnt > a) {
+                a = cnt;
             }
         }
-        printf("%d\n", max);
+        max[i] = a;
     }
+
+    for (i=0;i<t;i++) {
+        printf("%d\n", max[i]);
+    }
+
     return 0;
 }
