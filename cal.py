@@ -1,77 +1,28 @@
-from copy import copy
+import numpy as np
+import cv2
 
-class machine:
-    def __init__(self):
-        self.a = ['a','b','c','d','e','f','g']
-        self.b = copy(self.a)
+cap = cv2.VideoCapture(0)
 
-    def reset(self):
-        self.b = copy(self.a)
-    
-    def swap(self, a, c):
-            temp1 = 0
-            temp2 = 0
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-            for i in range(7):
+while(True):
+    # frame 별로 capture 한다
+    ret, frame = cap.read()
 
-                if self.b[i] == a:
-                    temp1 = i
-                elif self.b[i] == c:
-                    temp2 = i
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-            if not temp1 == 0:
-                temp = self.b[temp1]
-                self.b[temp1] = self.b[temp2]
-                self.b[temp2] = temp
-    
-    def cal(self, a):
-        a = a-1
+    #인식된 얼굴 갯수를 출력
+    print(len(faces))
 
-        if a<0 or a>len(self.b):
-            print("Error")
-            return None
+    # 인식된 얼굴에 사각형을 출력한다
+    for (x,y,w,h) in faces:
+         cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
 
-        elif a == 2:
-            self.swap('c', 'f')
-            self.swap('g', 'c')
-            
-            temp1 = 0
-            temp2 = 0
+    #화면에 출력한다
+    cv2.imshow('frame',frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-            for i in range(7):
-
-                if self.b[i] == 'd' or self.b[i] == 'x':
-                    temp1 = i
-                elif self.b[i] == 'e':
-                    temp2 = i
-
-            if not temp1 == 0:
-                temp = self.b[temp1]
-                self.b[temp1] = self.b[temp2]
-                self.b[temp2] = temp
-
-            print(self.b)
-
-        elif a == 3:
-            for i in range(7):
-                if self.b[i] == 'd':
-                    self.b[i] = 'x'
-
-            print(self.b)
-
-        elif a == 6:
-            self.reset()
-            print(self.b)
-
-        else:
-            print(self.b[a])
-        return self.b[a]
-
-if __name__ == "__main__":
-    result = machine()
-    result.cal(int(3))
-    result.cal(int(7))
-    result.cal(int(4))
-    result.cal(int(3))
-    result.cal(int(4))
-    result.cal(int(5))
+cap.release()
+cv2.destroyAllWindows()
