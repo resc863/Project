@@ -1,9 +1,14 @@
-from cal import machine
+from selenium import webdriver
+ 
+driver = webdriver.Chrome('chromedriver')
+driver.get("https://www.youtube.com/")
 
-result = machine()
-result.cal(int(3))
-result.cal(int(7))
-result.cal(int(4))
-result.cal(int(3))
-result.cal(int(4))
-result.cal(int(5))
+driver.find_element_by_xpath('/html/body/ytd-app/div/div/ytd-masthead/div[3]/div[3]/div[2]/ytd-button-renderer/a').click()
+
+driver.find_element_by_id('identifierId').send_keys(')
+
+driver.find_element_by_css_selector('.RveJvd').click()
+driver.find_element_by_css_selector("input[type=password]").send_keys('')
+
+driver.find_element_by_css_selector('.CwaK9').click()
+ 
