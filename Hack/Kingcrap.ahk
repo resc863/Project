@@ -24,22 +24,28 @@ GuiClose:
 
 o::
 	s:=false
-	MsgBox, 시스템에 치명적 문제가 발생했습니다.
+	MsgBox, 시스템에 치명적 문제가 발생했습니다.1
+return
+
+F2::
+	pause, toggle
 return
 
 Button시작:
 {
 	s:=true
 	t:=0
+	x:=1200
+	y:=1000
 	MsgBox, 오류!
 	gui, submit, nohide
-	Click 420, 380
+	Click x, y
 	Loop, %제한%
 	{
 		t:=t+1
 		GuiControl , , 횟수, %A_Index% 회
-		Click 420, 380
-		sleep, 100
+		Click x, y
+		sleep, 50
 		
 		if (s=false)
 		{
