@@ -12,8 +12,8 @@ unsigned long t;
 
 DHT dht(dhtpin, DHT11);
 
- float discomfortIndex(float temp, float humi) {
-    return (1.8f*temp)-(0.55*(1-humi/100.0f)*(1.8f*temp-26))+32;
+float discomfortIndex(float temp, float humi) {
+  return (1.8f*temp)-(0.55*(1-humi/100.0f)*(1.8f*temp-26))+32;
 }
 float pulse2ugm3(unsigned long pulse) {
   float value = (pulse - 1400) / 14.0;                
@@ -53,14 +53,14 @@ void loop() {
 
   Serial.print("불쾌지수: ");
   Serial.println(bad);
+  
+  pulse = pulseIn(GP2Y1023, LOW, 20000); 
+  ugm3 = pulse2ugm3(pulse);                                                      
+  Serial.print(ugm3);                         
+  Serial.println(" ug/m3");
 
   Serial.println("===========================");
 
-   pulse = pulseIn(GP2Y1023, LOW, 20000); 
-  ugm3 = pulse2ugm3(pulse);                                                      
-    Serial.print(ugm3);                         
-    Serial.println(" ug/m3");
-  
   
   if(light == 0&&bad>80) {
     digitalWrite(motor1, HIGH);
@@ -77,8 +77,5 @@ void loop() {
     digitalWrite(motor2, LOW);
     digitalWrite(6, LOW);
   }
-
-  
-  
   delay(1000);
 }
